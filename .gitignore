@@ -1,0 +1,38 @@
+# === Compilados de Java ===
+*.class
+*.log
+
+# === Directorios de Maven ===
+target/
+
+# === Archivos de configuración de IDEs ===
+# === VS Code ===
+.vscode/
+.history/
+*.code-workspace
+
+# IntelliJ
+.idea/
+*.iml
+out/
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# NetBeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# === Sistema operativo ===
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+

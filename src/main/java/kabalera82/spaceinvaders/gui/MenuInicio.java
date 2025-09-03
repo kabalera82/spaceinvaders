@@ -4,8 +4,10 @@ package kabalera82.spaceinvaders.gui;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 // ====================================================================================
 /**
@@ -35,8 +37,16 @@ public class MenuInicio {
         Button botonStart = new Button("Start");                                // Asigna a botonStart un boton con texto "Start"    
         botonStart.getStyleClass().add("boton-principal");                    // Asigna a botonStart la clase CSS "boton-principal"
         botonStart.setOnAction(e -> {
-            botonStart.setDisable(true);
-            botonStart.setText("Cargando...");
+
+            // ------------------------------------------------------------------------------------
+            Juego juego = new Juego();           
+            Scene escenaJuego = new Scene(new StackPane(juego.getCanvas()));
+           
+            // STAge***********************************************************************
+            Stage stage = (Stage) botonStart.getScene().getWindow();
+            stage.setScene(escenaJuego);
+            juego.start();
+            
         });
 
         // Contenedor --------------------------------------------------------------
