@@ -1,4 +1,4 @@
-package kabalera82.spaceinvaders;
+package kabalera82.vacio;
 
 import java.util.ArrayList;
 import java.util.Random;

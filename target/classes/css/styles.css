@@ -1,0 +1,16 @@
+.fondo-inicio { 
+  -fx-background-color: linear-gradient(to bottom, #0b1020, #2043ce);
+}
+
+.titulo {
+  -fx-fill: white; -fx-font-size: 36px; -fx-font-weight: bold;
+}
+
+.boton-principal {
+  -fx-font-size: 20px; -fx-padding: 10 20; -fx-background-radius: 10;
+  -fx-background-color: #3366cc; -fx-text-fill: white;
+}
+
+.boton-principal:hover {
+  -fx-background-color: #5588ff;
+}
