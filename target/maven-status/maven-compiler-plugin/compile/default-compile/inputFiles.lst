@@ -1,9 +1,15 @@
 F:\Marcos\Programacion\Java\spaceinvaders\src\main\java\kabalera82\spaceinvaders\App.java
+F:\Marcos\Programacion\Java\spaceinvaders\src\main\java\kabalera82\spaceinvaders\assets\AlienSkin.java
+F:\Marcos\Programacion\Java\spaceinvaders\src\main\java\kabalera82\spaceinvaders\assets\Assets.java
+F:\Marcos\Programacion\Java\spaceinvaders\src\main\java\kabalera82\spaceinvaders\assets\Sound.java
+F:\Marcos\Programacion\Java\spaceinvaders\src\main\java\kabalera82\spaceinvaders\assets\SoundAssets.java
+F:\Marcos\Programacion\Java\spaceinvaders\src\main\java\kabalera82\spaceinvaders\controlador\GameController.java
 F:\Marcos\Programacion\Java\spaceinvaders\src\main\java\kabalera82\spaceinvaders\controlador\TeclasJuego.java
 F:\Marcos\Programacion\Java\spaceinvaders\src\main\java\kabalera82\spaceinvaders\gui\MenuInicio.java
 F:\Marcos\Programacion\Java\spaceinvaders\src\main\java\kabalera82\spaceinvaders\gui\PanelJuego.java
 F:\Marcos\Programacion\Java\spaceinvaders\src\main\java\kabalera82\spaceinvaders\interfaces\IMovimiento.java
 F:\Marcos\Programacion\Java\spaceinvaders\src\main\java\kabalera82\spaceinvaders\model\Alien.java
+F:\Marcos\Programacion\Java\spaceinvaders\src\main\java\kabalera82\spaceinvaders\model\Disparo.java
 F:\Marcos\Programacion\Java\spaceinvaders\src\main\java\kabalera82\spaceinvaders\model\Entidad.java
 F:\Marcos\Programacion\Java\spaceinvaders\src\main\java\kabalera82\spaceinvaders\model\Nave.java
 F:\Marcos\Programacion\Java\spaceinvaders\src\main\java\kabalera82\vacio\SpaceInvadersFX.java

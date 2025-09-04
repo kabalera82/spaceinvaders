@@ -1,70 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Archivo POM (Project Object Model) de Maven.
-  Aquí se define toda la configuración del proyecto: 
-  nombre, versión, dependencias, plugins y compilador.
--->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-  <!-- Versión del modelo de Maven -->
   <modelVersion>4.0.0</modelVersion>
 
-  <!-- Identificadores del proyecto -->
-  <groupId>kabalera82</groupId>          <!-- Grupo/organización (como un paquete raíz) -->
-  <artifactId>spaceinvaders</artifactId> <!-- Nombre del proyecto/artefacto -->
-  <version>2.0</version>                 <!-- Versión del proyecto -->
-  <name>spaceinvaders</name>             <!-- Nombre legible del proyecto -->
+  <groupId>kabalera82</groupId>
+  <artifactId>spaceinvaders</artifactId>
+  <version>2.0</version>
+  <name>spaceinvaders</name>
 
-  <!-- Propiedades generales del proyecto -->
   <properties>
-    <!-- Codificación de ficheros fuente -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <!-- Versión de Java utilizada para compilar -->
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
-    <!-- Versión de JavaFX que vamos a usar -->
-    <javafx.version>17</javafx.version>
+    <javafx.version>17.0.2</javafx.version>
   </properties>
 
-  <!-- Dependencias necesarias para compilar y ejecutar el proyecto -->
   <dependencies>
-    <!-- Librerías de controles de JavaFX (Botones, Labels, Paneles, etc.) -->
+    <!-- JavaFX Controls -->
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
       <version>${javafx.version}</version>
     </dependency>
 
-    <!-- Librerías de JavaFX para usar FXML (si usamos Scene Builder/FXML) -->
+    <!-- JavaFX FXML -->
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-fxml</artifactId>
       <version>${javafx.version}</version>
     </dependency>
+
+    <!-- JavaFX Media (para audio y vídeo) -->
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-media</artifactId>
+      <version>${javafx.version}</version>
+    </dependency>
   </dependencies>
 
-  <!-- Configuración de la construcción (build) -->
   <build>
     <plugins>
-      <!-- Plugin oficial de JavaFX para ejecutar con Maven -->
       <plugin>
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-maven-plugin</artifactId>
         <version>0.0.8</version>
-
-        <!-- Configuración del plugin -->
         <configuration>
-          <!-- Clase principal que arranca el programa (extends Application) -->
           <mainClass>kabalera82.spaceinvaders.App</mainClass>
-          <!--
-            NOTA:
-            Aquí se podría añadir <modules> para indicar los módulos de JavaFX 
-            (javafx.controls, javafx.fxml, javafx.media, etc.) 
-            si se necesitan más en el futuro.
-          -->
+          <options>
+            <option>--add-modules</option>
+            <option>javafx.controls,javafx.fxml,javafx.media</option>
+          </options>
         </configuration>
       </plugin>
     </plugins>
