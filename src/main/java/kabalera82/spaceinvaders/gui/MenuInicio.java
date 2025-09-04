@@ -39,7 +39,7 @@ public class MenuInicio {
         botonStart.setOnAction(e -> {
 
             // ------------------------------------------------------------------------------------
-            Juego juego = new Juego();           
+            PanelJuego juego = new PanelJuego();           
             Scene escenaJuego = new Scene(new StackPane(juego.getCanvas()));
            
             // STAge***********************************************************************

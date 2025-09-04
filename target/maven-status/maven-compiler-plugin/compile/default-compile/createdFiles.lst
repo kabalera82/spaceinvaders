@@ -1,5 +1,12 @@
 kabalera82\vacio\SpaceInvadersFX$1.class
+kabalera82\spaceinvaders\interfaces\IMovimiento.class
+kabalera82\spaceinvaders\model\Alien.class
 kabalera82\vacio\SpaceInvadersFX$Block.class
+kabalera82\spaceinvaders\controlador\TeclasJuego.class
+kabalera82\spaceinvaders\gui\PanelJuego.class
+kabalera82\spaceinvaders\gui\PanelJuego$1.class
 kabalera82\spaceinvaders\App.class
 kabalera82\spaceinvaders\gui\MenuInicio.class
+kabalera82\spaceinvaders\model\Nave.class
+kabalera82\spaceinvaders\model\Entidad.class
 kabalera82\vacio\SpaceInvadersFX.class
