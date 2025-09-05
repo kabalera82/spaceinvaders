@@ -1,6 +1,6 @@
 package kabalera82.spaceinvaders;
 
-// === Imports ===========================================================
+//  Imports ===============================================================================
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -9,14 +9,16 @@ import kabalera82.spaceinvaders.assets.SoundAssets;
 import kabalera82.spaceinvaders.gui.MenuInicio;
 
 /**
- * Clase principal de la aplicación Space Invaders.
+ * Clase principal de la aplicación <b>Space Invaders</b>.
  *
- * <p>Extiende {@link javafx.application.Application} y es la encargada
- * de arrancar el ciclo de vida de JavaFX.</p>
+ * <p>Esta clase extiende {@link javafx.application.Application} y es la encargada
+ * de gestionar el ciclo de vida de JavaFX.</p>
  *
- * <p>Su función principal es crear la ventana principal
- * y mostrar el menú inicial definido en {@link kabalera82.spaceinvaders.gui.MenuInicio}.</p>
- *
+ * <ul>
+ *   <li>Crear y configurar la ventana principal de la aplicación.</li>
+ *   <li>Mostrar el menú inicial definido en {@link MenuInicio}.</li>
+ *   <li>Iniciar la música de fondo.</li>
+ * </ul>
  * @author Kabalera82
  * @version 1.0
  */

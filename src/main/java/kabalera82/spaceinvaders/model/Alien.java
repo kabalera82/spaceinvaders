@@ -18,7 +18,7 @@ public class Alien extends Entidad implements IMovimiento {
     private double frameDuration = 0.22; // segundos por frame (ajústalo a tu gusto)
 
     // === Movimiento “clásico” Space Invaders ===
-    private final double vel = 40;     // velocidad horizontal px/s
+    private final double vel = 60;     // velocidad horizontal px/s
     private int dir = 1;               // 1= derecha, -1= izquierda
     private final double descenso = 16;
 

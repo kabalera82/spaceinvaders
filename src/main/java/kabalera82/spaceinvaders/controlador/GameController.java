@@ -61,10 +61,11 @@ public class GameController {
     private final double disparoH = CASILLA * 0.8;
     private final double disparoVel = -480; // px/s hacia arriba
     private long lastShotNs = 0;
-    private final long shotCooldownNs = 300_000_000; // 300 ms
+    private final long shotCooldownNs = 200_000_000; // 300 ms
 
     private int vidas = 3;
     private int puntos = 0;
+    private int nivel = 1;
     private boolean gameOver = false;
 
     public GameController(PanelJuego view) {
@@ -136,13 +137,21 @@ public class GameController {
         double startX = ALIENS_MARGEN_X;
         double startY = ALIENS_MARGEN_SUP;
 
-        for (int fila = 0; fila < ALIENS_FILAS; fila++) {
+        // Aumenta filas y columnas con el nivel
+        int filas = ALIENS_FILAS + (nivel - 1);   // más filas cada nivel
+        int cols  = ALIENS_COLS  + (nivel - 1);   // más columnas cada nivel
+
+        for (int fila = 0; fila < filas; fila++) {
             AlienSkin skinFila = skins[fila % skins.length]; // cada fila un color
-            for (int col = 0; col < ALIENS_COLS; col++) {
+            for (int col = 0; col < cols; col++) {
                 double x = startX + col * ALIENS_SEP_X;
                 double y = startY + fila * ALIENS_SEP_Y;
                 Alien alien = new Alien(x, y, alienW, alienH, ANCHO, ALTO, skinFila);
-                alien.setFrameDuration(0.22); // opcional: más rápido = menor valor
+
+                // cuanto mayor es el nivel, más rápido animan
+                double frameDuration = Math.max(0.05, 0.15 - (nivel - 1) * 0.01);
+                alien.setFrameDuration(frameDuration);
+
                 aliens.add(alien);
             }
         }
@@ -203,6 +212,7 @@ public class GameController {
 
         // Siguiente oleada
         if (aliens.isEmpty()) {
+            nivel++;
             crearOleadaAliens();
             // Puedes aumentar dificultad aquí (p.ej., velocidad de Alien)
         }
