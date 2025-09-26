@@ -73,7 +73,7 @@ public class GameController {
     private final List<Disparo> disparos = new ArrayList<>();
     private final double disparoW = CASILLA * 0.2;
     private final double disparoH = CASILLA * 0.8;
-    private final double disparoVel = -480; // px/s hacia arriba
+    private final double disparoVel = -200; // px/s hacia arriba
     private long lastShotNs = 0;
     private final long shotCooldownNs = 200_000_000; // 200 ms
 

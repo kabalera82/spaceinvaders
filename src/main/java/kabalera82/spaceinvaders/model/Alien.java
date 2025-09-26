@@ -46,7 +46,7 @@ public class Alien extends Entidad implements IMovimiento {
     // === Movimiento clásico estilo Space Invaders ===
 
     /** Velocidad horizontal en píxeles por segundo. */
-    private final double vel = 60;
+    private final double vel = 100;
 
     /** Dirección del movimiento: {@code 1} derecha, {@code -1} izquierda. */
     private int dir = 1;
