@@ -71,7 +71,7 @@ disponible en :
 
 🚀🚀🚀🚀👽👽👽👽👾👾👾👾👾👾 Autor 👾👾👾👾👾👾👽👽👽👽🚀🚀🚀�
 
--- Marcos Padilla --
--- Kabalera82 --
-[GitHub](https://github.com/kabalera82)
+- Marcos Padilla
+ Kabalera82 
+- [GitHub](https://github.com/kabalera82)
 ```
