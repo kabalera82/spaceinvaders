@@ -46,9 +46,9 @@ Proyecto educativo en **JavaFX** que implementa una versión del clásico **Spac
 
 🚀🚀🚀🚀👽👽👽👽👾👾👾👾👾👾 Controles 👾👾👾👾👾👾👽👽👽👽🚀🚀🚀🚀
 
-***Flecha izquierda** o **A** → mover nave a la izquierda
-***Flecha derecha** o **D** → mover nave a la derecha
-* ␣ **Espacio** → disparar
+- Flecha izquierda** o **A** → mover nave a la izquierda
+- Flecha derecha** o **D** → mover nave a la derecha
+- ␣ **Espacio** → disparar
 
 🚀🚀🚀🚀👽👽👽👽👾👾👾👾👾👾 Documentación 👾👾👾👾👾👾👽👽👽👽🚀🚀🚀🚀
 
@@ -60,9 +60,9 @@ disponible en :
 
 🚀🚀🚀🚀👽👽👽👽👾👾👾👾👾👾 Tecnologías 👾👾👾👾👾👾👽👽👽👽🚀🚀🚀🚀
 
-* JAVA 17 ☕☕☕
-* JavaFx 21.0.4
-* Apache Maven 3.9.6
+- JAVA 17 ☕☕☕
+- JavaFx 21.0.4
+- Apache Maven 3.9.6
 
 🚀🚀🚀🚀👽👽👽👽👾👾👾👾👾👾 Tecnologías 👾👾👾👾👾👾👽👽👽👽🚀🚀🚀🚀
 
@@ -71,7 +71,7 @@ disponible en :
 
 🚀🚀🚀🚀👽👽👽👽👾👾👾👾👾👾 Autor 👾👾👾👾👾👾👽👽👽👽🚀🚀🚀�
 
-** Marcos Padilla**
-**Kabalera82**
+-- Marcos Padilla --
+-- Kabalera82 --
 [GitHub](https://github.com/kabalera82)
 ```
