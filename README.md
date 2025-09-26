@@ -12,7 +12,8 @@ Proyecto educativo en **JavaFX** que implementa una versión del clásico **Spac
 - Control por teclado
 - Documentación generada con **Javadoc**.
 
-🚀🚀🚀🚀👽👽👽👽👾👾👾👾👾👾 Estructura del proyecto 👾👾👾👾👾👾👽👽👽👽🚀🚀🚀🚀
+🚀🚀🚀🚀👽👽👽👽👾👾👾👾👾👾 Estructura del proyecto 👾👾👾👾👾👾👽👽👽👽🚀🚀🚀🚀 
+```
 /
 ├── pom.xml
 ├── src/
@@ -32,7 +33,7 @@ Proyecto educativo en **JavaFX** que implementa una versión del clásico **Spac
 ├── docs/
 │   └── javadoc/                            # Documentación generada (subir si quieres GitHub Pages)
 └── target/                                 # Generado por Maven (ignorar en Git)
-
+```
 
 🚀🚀🚀🚀👽👽👽👽👾👾👾👾👾👾 Ejecución 👾👾👾👾👾👾👽👽👽👽🚀🚀🚀🚀
 
