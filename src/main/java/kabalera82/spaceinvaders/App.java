@@ -1,6 +1,6 @@
 package kabalera82.spaceinvaders;
 
-//  Imports ===============================================================================
+// === Imports =================================================================
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -11,53 +11,61 @@ import kabalera82.spaceinvaders.gui.MenuInicio;
 /**
  * Clase principal de la aplicación <b>Space Invaders</b>.
  *
- * <p>Esta clase extiende {@link javafx.application.Application} y es la encargada
- * de gestionar el ciclo de vida de JavaFX.</p>
- *
+ * <p>Extiende de {@link javafx.application.Application} y es responsable de
+ * iniciar y gestionar el ciclo de vida de JavaFX. Su cometido principal es:</p>
  * <ul>
- *   <li>Crear y configurar la ventana principal de la aplicación.</li>
- *   <li>Mostrar el menú inicial definido en {@link MenuInicio}.</li>
- *   <li>Iniciar la música de fondo.</li>
+ *   <li>Configurar la ventana principal de la aplicación.</li>
+ *   <li>Mostrar el menú inicial implementado en {@link MenuInicio}.</li>
+ *   <li>Iniciar la música de fondo definida en {@link SoundAssets}.</li>
  * </ul>
- * @author Kabalera82
+ *
+ * <p>Esta clase se considera el punto de entrada oficial del proyecto cuando se
+ * ejecuta desde Maven o desde un IDE.</p>
+ *
+ * @author  Kabalera82
  * @version 1.0
+ * @see javafx.application.Application
+ * @see kabalera82.spaceinvaders.gui.MenuInicio
+ * @see kabalera82.spaceinvaders.assets.SoundAssets
  */
 public class App extends Application {
 
     /**
-     * Método principal que se ejecuta al iniciar la aplicación JavaFX.
+     * Método que se ejecuta al iniciar la aplicación JavaFX.
      *
-     * <p>Se encarga de preparar la ventana principal (Stage), asignar un título,
-     * configurar si es redimensionable y mostrar la escena del menú inicial.</p>
+     * <p>En este método se crea la escena principal, se configuran las
+     * propiedades de la ventana (título, tamaño, redimensionamiento) y se
+     * establece el menú inicial como contenido visible. Además, se arranca
+     * la música de fondo en bucle.</p>
      *
-     * @param escenario Ventana principal de la aplicación (Stage).
+     * @param escenario la ventana principal de la aplicación, proporcionada por
+     *                  el sistema JavaFX al arrancar.
      */
     @Override
     public void start(Stage escenario) {
-        // Crear la escena del menú de inicio a través de MenuInicio
+        // Crear la escena del menú de inicio
         Scene menu = new MenuInicio().construir();
 
-        // Configurar propiedades del escenario (ventana)
-        escenario.setTitle("Space Invaders"); // título de la ventana
-        escenario.setResizable(false);        // no permitir redimensionar
-        escenario.setScene(menu);             // asignar la escena del menú
-        escenario.show();                     // mostrar la ventana
-    
-        // Reproducir música de fondo
+        // Configuración de la ventana principal
+        escenario.setTitle("Space Invaders"); // Título de la ventana
+        escenario.setResizable(false);        // Desactivar redimensionamiento
+        escenario.setScene(menu);             // Asignar escena inicial
+        escenario.show();                     // Mostrar la ventana en pantalla
+
+        // Iniciar música de fondo con volumen al 50%
         SoundAssets.playMusic(Sound.MUSICA_FONDO, 0.5);
-        
     }
 
-    // ===========================================================================================
+    // =========================================================================
     /**
-     * Punto de entrada del programa.
+     * Punto de entrada estándar del programa.
      *
-     * <p>Este método invoca a {@link Application#launch(String...)} para
-     * iniciar el ciclo de vida de JavaFX.</p>
+     * <p>Llama a {@link Application#launch(String...)} para inicializar el
+     * ciclo de vida de la aplicación JavaFX.</p>
      *
-     * @param args Argumentos de línea de comandos (no utilizados).
+     * @param args argumentos de línea de comandos (no se utilizan en este caso).
      */
     public static void main(String[] args) {
-        launch(); // Lanza la aplicación JavaFX
+        launch(); // Arranca la aplicación JavaFX
     }
 }

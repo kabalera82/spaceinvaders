@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"kabalera82.spaceinvaders"},{"l":"kabalera82.spaceinvaders.assets"},{"l":"kabalera82.spaceinvaders.controlador"},{"l":"kabalera82.spaceinvaders.gui"},{"l":"kabalera82.spaceinvaders.interfaces"},{"l":"kabalera82.spaceinvaders.launcher"},{"l":"kabalera82.spaceinvaders.model"}];updateSearchResults();

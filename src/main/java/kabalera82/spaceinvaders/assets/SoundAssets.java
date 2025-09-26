@@ -8,42 +8,42 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 /**
- * Gestor centralizado de sonidos para el juego Space Invaders.
+ * Gestor centralizado de sonidos para el juego <b>Space Invaders</b>.
  *
- * <p>Permite reproducir música de fondo en bucle y efectos de sonido
- * puntuales (disparos, explosiones, impactos, etc.).
- * Los recursos de audio deben estar en <code>src/main/resources/audio/</code>
- * y declarados en el enum {@link Sound}.</p>
+ * <p>Se encarga de reproducir música de fondo en bucle y efectos de sonido
+ * puntuales (disparos, explosiones, impactos, etc.). Los recursos deben estar
+ * ubicados en {@code src/main/resources/audios/} y referenciados desde el
+ * enum {@link Sound}.</p>
  *
- * <p>Ejemplos de uso:</p>
+ * <h2>Ejemplos de uso</h2>
  * <pre>{@code
- *   // Música de fondo en bucle
- *   SoundAssets.playMusic(Sound.MUSICA_FONDO, 0.5);
+ * // Reproducir música de fondo en bucle
+ * SoundAssets.playMusic(Sound.MUSICA_FONDO, 0.5);
  *
- *   // Efecto al disparar
- *   SoundAssets.playDisparo();
+ * // Reproducir efecto de disparo
+ * SoundAssets.playDisparo();
  * }</pre>
  *
- * @author 
+ * @author  Kabalera82
  * @version 1.0
  */
 public final class SoundAssets {
 
-    /** Caché para no recargar varias veces el mismo recurso de audio. */
+    /** Caché interna para evitar recargar varias veces el mismo recurso de audio. */
     private static final Map<String, Media> CACHE = new HashMap<>();
 
-    /** Reproductor dedicado a la música de fondo (se mantiene en bucle). */
+    /** Reproductor dedicado a la música de fondo (en bucle). */
     private static MediaPlayer musicPlayer;
 
     /** Constructor privado: clase de utilidades, no instanciable. */
     private SoundAssets() {}
 
     /**
-     * Obtiene (y cachea) un recurso de audio como {@link Media}.
+     * Obtiene un recurso de audio y lo almacena en caché para futuras llamadas.
      *
-     * @param path Ruta dentro del classpath (ej. "/audio/disparo.mp3")
-     * @return el objeto {@link Media} correspondiente al recurso
-     * @throws IllegalArgumentException si el recurso no existe
+     * @param path ruta relativa dentro del classpath (ej. {@code "/audios/disparo.wav"}).
+     * @return el objeto {@link Media} correspondiente.
+     * @throws IllegalArgumentException si el recurso no existe.
      */
     private static Media getMedia(String path) {
         return CACHE.computeIfAbsent(path, p -> {
@@ -60,8 +60,8 @@ public final class SoundAssets {
     /**
      * Reproduce en bucle una pista de música de fondo.
      *
-     * @param sound  sonido definido en {@link Sound} (ej. MUSICA_FONDO)
-     * @param volume volumen de 0.0 (silencio) a 1.0 (máximo)
+     * @param sound  sonido definido en {@link Sound} (ej. {@link Sound#MUSICA_FONDO}).
+     * @param volume volumen entre {@code 0.0} (silencio) y {@code 1.0} (máximo).
      */
     public static void playMusic(Sound sound, double volume) {
         if (musicPlayer != null) musicPlayer.stop();
@@ -71,9 +71,7 @@ public final class SoundAssets {
         musicPlayer.play();
     }
 
-    /**
-     * Detiene la música de fondo si está sonando.
-     */
+    /** Detiene la música de fondo si está activa. */
     public static void stopMusic() {
         if (musicPlayer != null) musicPlayer.stop();
     }
@@ -83,29 +81,29 @@ public final class SoundAssets {
     /**
      * Reproduce un efecto puntual (no en bucle).
      *
-     * @param sound  sonido definido en {@link Sound} (ej. DISPARO)
-     * @param volume volumen de 0.0 (silencio) a 1.0 (máximo)
+     * @param sound  sonido definido en {@link Sound} (ej. {@link Sound#DISPARO}).
+     * @param volume volumen entre {@code 0.0} (silencio) y {@code 1.0} (máximo).
      */
     public static void playEffect(Sound sound, double volume) {
         MediaPlayer effect = new MediaPlayer(getMedia(sound.path));
         effect.setVolume(volume);
-        effect.setOnEndOfMedia(effect::dispose); // liberar recursos al acabar
+        effect.setOnEndOfMedia(effect::dispose); // liberar recursos al terminar
         effect.play();
     }
 
-    // === Helpers específicos del juego =====================================
+    // === Métodos helper ====================================================
 
-    /** Efecto de disparo de la nave. */
+    /** Reproduce el efecto de disparo de la nave. */
     public static void playDisparo() {
         playEffect(Sound.DISPARO, 0.8);
     }
 
-    /** Efecto de explosión de un alien. */
+    /** Reproduce el efecto de explosión de un alien. */
     public static void playAlienExplosion() {
         playEffect(Sound.ALIEN_EXPLOSION, 0.9);
     }
 
-    /** Efecto de golpe a la nave (cuando pierde una vida). */
+    /** Reproduce el efecto de golpe a la nave (pérdida de vida o fin de partida). */
     public static void playNaveHit() {
         playEffect(Sound.GAME_OVER, 1.0);
     }

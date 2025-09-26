@@ -11,75 +11,90 @@ import javafx.stage.Stage;
 import kabalera82.spaceinvaders.controlador.GameController;
 
 /**
- * Clase que construye el menú de inicio de la aplicación Space Invaders.
+ * Representa el menú inicial de la aplicación <b>Space Invaders</b>.
  *
- * <p>El menú incluye:</p>
+ * <p>Este menú se muestra al iniciar el programa y ofrece:</p>
  * <ul>
- *   <li>Un título.</li>
- *   <li>Un botón para iniciar el juego.</li>
+ *   <li>Un título visible en la parte superior.</li>
+ *   <li>Un botón principal para iniciar la partida.</li>
  * </ul>
  *
- * <p>Está construido con JavaFX y aplica estilos desde
- * el fichero CSS <code>/css/styles.css</code>.</p>
+ * <p>El diseño está implementado con <b>JavaFX</b> y aplica estilos
+ * desde la hoja de estilos externa <code>/css/styles.css</code>.</p>
  *
- * @author Kabalera82
+ * <h2>Responsabilidades</h2>
+ * <ul>
+ *   <li>Construir la interfaz del menú de inicio.</li>
+ *   <li>Gestionar la transición hacia la escena de juego cuando se pulsa
+ *       el botón "Start".</li>
+ *   <li>Inicializar el {@link GameController} que orquesta la lógica
+ *       del juego.</li>
+ * </ul>
+ *
+ * @author  Kabalera82
  * @version 1.0
  * @see javafx.scene.Scene
+ * @see kabalera82.spaceinvaders.controlador.GameController
+ * @see kabalera82.spaceinvaders.gui.PanelJuego
  */
 public class MenuInicio {
 
     /**
-     * Construye y devuelve la escena del menú de inicio.
+     * Construye y devuelve la escena del menú inicial.
      *
-     * @return la {@link Scene} que contiene el menú inicial.
+     * <p>Incluye un título y un botón de inicio. Al pulsar el botón, se
+     * crea una instancia de {@link PanelJuego}, se inicializa un
+     * {@link GameController} y se cambia la escena del
+     * {@link Stage} principal hacia el juego.</p>
+     *
+     * @return la {@link Scene} que contiene la interfaz del menú de inicio.
      */
     public Scene construir() {
-        // ==================== Texto del título ====================
-        Text titulo = new Text("ESPACE INVADERS"); // Texto que actúa como título
-        titulo.getStyleClass().add("titulo");  // Se le aplica la clase CSS "titulo"
+        // --- Título del menú ---
+        Text titulo = new Text("SPACE INVADERS");
+        titulo.getStyleClass().add("titulo");  // Clase CSS para el estilo del título
 
-        // ==================== Botón Start ====================
-        Button botonStart = new Button("Start"); // Botón para iniciar el juego
-        botonStart.getStyleClass().add("boton-principal"); // Clase CSS para estilo
+        // --- Botón Start ---
+        Button botonStart = new Button("Start");
+        botonStart.getStyleClass().add("boton-principal"); // Clase CSS para el estilo del botón
 
-        // Acción cuando se pulsa el botón Start
+        // Acción asociada al botón Start
         botonStart.setOnAction(e -> {
+            // Crear la vista principal del juego (Canvas incluido)
             PanelJuego view = new PanelJuego();
+
+            // Escena del juego, usando un StackPane como contenedor del Canvas
             Scene escenaJuego = new Scene(new StackPane(view.getCanvas()));
 
-            // Controlador con TODA la lógica
+            // Crear el controlador encargado de la lógica del juego
             GameController controller = new GameController(view);
 
-            // Input: que el controlador escuche el teclado del Canvas (o de la Scene si prefieres)
+            // Vincular entradas de teclado al controlador
             controller.bindInput(view.getCanvas());
 
+            // Obtener ventana principal (Stage) y cambiar su escena
             Stage stage = (Stage) botonStart.getScene().getWindow();
             stage.setScene(escenaJuego);
 
-            // Arrancar bucle
+            // Iniciar el bucle principal del juego
             controller.start();
         });
 
-        // ==================== Contenedor principal ====================
+        // --- Contenedor principal ---
         VBox contenedor = new VBox(20, titulo, botonStart);
-        // VBox: organiza elementos en columna
-        // "20" → separación entre elementos (espaciado vertical)
+        contenedor.setAlignment(Pos.CENTER);             // Centrar contenido
+        contenedor.setPrefSize(720, 480);                // Tamaño preferido de la ventana
+        contenedor.getStyleClass().add("fondo-inicio");  // Estilo CSS de fondo
 
-        contenedor.setAlignment(Pos.CENTER);     // Centra el contenido
-        contenedor.setPrefSize(720, 480);        // Tamaño preferido de la ventana
-        contenedor.getStyleClass().add("fondo-inicio"); // Aplica estilo CSS de fondo
-
-        // ==================== Escena principal ====================
-        Scene escenario = new Scene(contenedor); // Escena con VBox como raíz
+        // --- Escena principal del menú ---
+        Scene escenario = new Scene(contenedor);
 
         // Vincular hoja de estilos CSS
-        escenario
-            .getStylesheets()
-            .add(getClass()
-            .getResource("/css/styles.css")
-            .toExternalForm());
+        escenario.getStylesheets().add(
+                getClass().getResource("/css/styles.css").toExternalForm()
+        );
 
-        // ==================== Devolver escena ====================
-        return escenario; // Devuelve la escena ya construida
+        // --- Devolver escena construida ---
+        return escenario;
     }
 }

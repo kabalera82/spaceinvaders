@@ -4,21 +4,28 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 /**
- * Clase que gestiona el estado de las teclas utilizadas en el juego.
+ * Gestor de estado de teclas utilizadas en el juego.
  *
- * <p>Permite saber si el jugador está pulsando izquierda, derecha o disparo.
- * Usa <code>boolean</code> estáticos para que cualquier parte del juego
- * pueda consultar el estado actual de las teclas.</p>
+ * <p>Permite conocer en cualquier momento si el jugador mantiene pulsadas
+ * las teclas de dirección o disparo. Utiliza campos estáticos para que
+ * puedan consultarse desde cualquier parte del código.</p>
  *
- * <p>Se utiliza junto con los eventos de teclado de JavaFX:
- * {@link #keyPressed(KeyEvent)}, {@link #keyReleased(KeyEvent)}.</p>
+ * <h2>Teclas controladas</h2>
+ * <ul>
+ *   <li><b>Izquierda</b> → {@link #izquierda}</li>
+ *   <li><b>Derecha</b> → {@link #derecha}</li>
+ *   <li><b>Disparo</b> (espacio) → {@link #disparo}</li>
+ * </ul>
  *
- * <p>Ejemplo de uso:</p>
- * <pre>
+ * <h2>Uso típico</h2>
+ * <pre>{@code
  * escena.setOnKeyPressed(teclas::keyPressed);
  * escena.setOnKeyReleased(teclas::keyReleased);
  * if (TeclasJuego.izquierda) nave.moverPaso(-1);
- * </pre>
+ * }</pre>
+ *
+ * @author  Kabalera82
+ * @version 1.0
  */
 public class TeclasJuego {
 
@@ -33,23 +40,19 @@ public class TeclasJuego {
 
     /**
      * Maneja eventos de tipo "key typed".
-     * <p>En este juego no se utiliza, pero se incluye por completitud.</p>
+     *
+     * <p>No se utiliza en este juego, pero se mantiene por completitud.</p>
      *
      * @param evento evento de tecla tipeada.
      */
     public void keyTyped(KeyEvent evento) {
-        // No usado en este juego (solo interesa PRESSED y RELEASED)
+        // No utilizado
     }
 
     /**
-     * Maneja cuando una tecla se pulsa.
-     * 
-     * <p>Activa el flag correspondiente a la tecla pulsada:</p>
-     * <ul>
-     *   <li>→ (RIGHT) → activa {@link #derecha}.</li>
-     *   <li>← (LEFT) → activa {@link #izquierda}.</li>
-     *   <li>SPACE → activa {@link #disparo}.</li>
-     * </ul>
+     * Maneja el evento cuando una tecla es presionada.
+     *
+     * <p>Establece en {@code true} el flag de la tecla correspondiente.</p>
      *
      * @param evento evento de tecla pulsada.
      */
@@ -62,17 +65,17 @@ public class TeclasJuego {
     }
 
     /**
-     * Maneja cuando una tecla se suelta.
+     * Maneja el evento cuando una tecla es liberada.
      *
-     * <p>Actualmente está vacío, pero normalmente se usaría para poner en
-     * <code>false</code> los flags al soltar cada tecla. Ejemplo:</p>
-     * <pre>
+     * <p>Se recomienda implementar la lógica para restablecer los flags a
+     * {@code false} al soltar cada tecla:</p>
+     * <pre>{@code
      * if (codigo == KeyCode.RIGHT) derecha = false;
-     * </pre>
+     * }</pre>
      *
      * @param evento evento de tecla liberada.
      */
     public void keyReleased(KeyEvent evento) {
-        // Vacío: se podría implementar para resetear flags al soltar teclas
+        // Por implementar si se desea gestionar la liberación de teclas
     }
 }

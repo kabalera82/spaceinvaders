@@ -18,17 +18,31 @@ import kabalera82.spaceinvaders.model.Disparo;
 import kabalera82.spaceinvaders.model.Nave;
 
 /**
- * Controlador del juego: contiene TODA la lógica.
- * - Bucle principal (AnimationTimer) y cálculo de dt
- * - Input (teclado): mover nave, disparar
- * - Spawns: crear oleadas de aliens
- * - Actualización: mover aliens/disparos
- * - Colisiones y reglas (vidas, puntos, game over)
- * - Pinta a través de la Vista (PanelJuego.render(...))
+ * Controlador principal del juego Space Invaders.
+ *
+ * <p>Se encarga de gestionar toda la lógica del juego, siguiendo el patrón MVC:</p>
+ * <ul>
+ *   <li><b>Modelo:</b> gestiona el estado de {@link Nave}, {@link Alien} y {@link Disparo}.</li>
+ *   <li><b>Vista:</b> se comunica con {@link PanelJuego} para renderizar.</li>
+ *   <li><b>Controlador:</b> procesa la entrada de teclado y aplica las reglas del juego.</li>
+ * </ul>
+ *
+ * <h2>Responsabilidades</h2>
+ * <ul>
+ *   <li>Gestionar el bucle principal mediante {@link AnimationTimer}.</li>
+ *   <li>Recoger y procesar las entradas de teclado (mover nave, disparar).</li>
+ *   <li>Crear oleadas de enemigos.</li>
+ *   <li>Actualizar posiciones de entidades y detectar colisiones.</li>
+ *   <li>Aplicar reglas de vidas, puntuación, niveles y condiciones de fin de juego.</li>
+ *   <li>Delegar el dibujado a {@link PanelJuego}.</li>
+ * </ul>
+ *
+ * @author  Kabalera82
+ * @version 1.0
  */
 public class GameController {
 
-    // ====== Config del “mundo” (igual que antes) ======
+    // ====== Configuración del mundo ======
     private static final int CASILLA  = 32;
     private static final int FILAS    = 32;
     private static final int COLUMNAS = 32;
@@ -61,17 +75,23 @@ public class GameController {
     private final double disparoH = CASILLA * 0.8;
     private final double disparoVel = -480; // px/s hacia arriba
     private long lastShotNs = 0;
-    private final long shotCooldownNs = 200_000_000; // 300 ms
+    private final long shotCooldownNs = 200_000_000; // 200 ms
 
     private int vidas = 3;
     private int puntos = 0;
     private int nivel = 1;
     private boolean gameOver = false;
 
+    /**
+     * Construye un controlador asociado a la vista especificada.
+     *
+     * @param view panel de juego que se usará para renderizar.
+     */
     public GameController(PanelJuego view) {
         this.view = view;
         initEstado();
 
+        // Bucle de animación principal
         this.loop = new AnimationTimer() {
             @Override public void handle(long ahora) {
                 if (gameOver) {
@@ -89,11 +109,20 @@ public class GameController {
     }
 
     // ====== Ciclo de vida ======
+
+    /** Inicia el bucle de animación del juego. */
     public void start() { loop.start(); }
+
+    /** Detiene el bucle de animación del juego. */
     public void stop()  { loop.stop();  }
 
     // ====== Input ======
-    /** Enlaza el input del teclado de cualquier Node (Canvas, Scene, StackPane...) */
+
+    /**
+     * Enlaza los eventos de teclado al nodo indicado.
+     *
+     * @param node nodo sobre el que escuchar eventos (Canvas, Scene, etc.).
+     */
     public void bindInput(Node node) {
         node.setOnKeyPressed(this::onKeyPressed);
         node.setOnKeyReleased(this::onKeyReleased);
@@ -109,16 +138,18 @@ public class GameController {
     }
 
     private void onKeyReleased(KeyEvent e) {
-        // Si quisieras gestionar “hold” continuo, puedes resetear flags aquí.
+        // Punto de extensión: podría usarse para gestionar inputs continuos
     }
 
     // ====== Estado inicial ======
+
+    /** Inicializa o reinicia el estado del juego. */
     private void initEstado() {
         nave = new Nave(
-            ANCHO / 2.0 - naveW / 2.0,
-            ALTO - naveH - CASILLA,
-            naveW, naveH, ANCHO, ALTO,
-            "/imagenes/nave.png"
+                ANCHO / 2.0 - naveW / 2.0,
+                ALTO - naveH - CASILLA,
+                naveW, naveH, ANCHO, ALTO,
+                "/imagenes/nave.png"
         );
         nave.setPasoPx(CASILLA / 2.0);
         crearOleadaAliens();
@@ -130,25 +161,24 @@ public class GameController {
         lastShotNs = 0;
     }
 
+    /** Genera una nueva oleada de aliens en función del nivel actual. */
     private void crearOleadaAliens() {
         aliens.clear();
-        AlienSkin[] skins = AlienSkin.values(); // GREEN, CYAN, MAGENTA, YELLOW
+        AlienSkin[] skins = AlienSkin.values();
 
         double startX = ALIENS_MARGEN_X;
         double startY = ALIENS_MARGEN_SUP;
 
-        // Aumenta filas y columnas con el nivel
-        int filas = ALIENS_FILAS + (nivel - 1);   // más filas cada nivel
-        int cols  = ALIENS_COLS  + (nivel - 1);   // más columnas cada nivel
+        int filas = ALIENS_FILAS + (nivel - 1);
+        int cols  = ALIENS_COLS  + (nivel - 1);
 
         for (int fila = 0; fila < filas; fila++) {
-            AlienSkin skinFila = skins[fila % skins.length]; // cada fila un color
+            AlienSkin skinFila = skins[fila % skins.length];
             for (int col = 0; col < cols; col++) {
                 double x = startX + col * ALIENS_SEP_X;
                 double y = startY + fila * ALIENS_SEP_Y;
                 Alien alien = new Alien(x, y, alienW, alienH, ANCHO, ALTO, skinFila);
 
-                // cuanto mayor es el nivel, más rápido animan
                 double frameDuration = Math.max(0.05, 0.15 - (nivel - 1) * 0.01);
                 alien.setFrameDuration(frameDuration);
 
@@ -157,6 +187,7 @@ public class GameController {
         }
     }
 
+    /** Dispara un proyectil desde la nave si el cooldown lo permite. */
     private void disparar() {
         long ahora = System.nanoTime();
         if (ahora - lastShotNs < shotCooldownNs) return;
@@ -170,13 +201,19 @@ public class GameController {
         SoundAssets.playDisparo();
     }
 
-    // ====== Update/Colisiones/Reglas ======
+    // ====== Update / Colisiones / Reglas ======
+
+    /**
+     * Actualiza el estado del juego.
+     *
+     * @param dt tiempo en segundos desde la última actualización.
+     */
     private void update(double dt) {
         // Aliens
         for (Alien a : aliens) {
             a.actualizar(dt);
             if (colision(a.getBounds(), nave.getBounds())
-             || a.getBounds().getMaxY() >= nave.getBounds().getMinY()) {
+                    || a.getBounds().getMaxY() >= nave.getBounds().getMinY()) {
                 perderVidaYReiniciar();
                 SoundAssets.playNaveHit();
                 return;
@@ -210,27 +247,29 @@ public class GameController {
         if (!killAliens.isEmpty()) aliens.removeAll(killAliens);
         if (!killShots.isEmpty())  disparos.removeAll(killShots);
 
-        // Siguiente oleada
+        // Nueva oleada
         if (aliens.isEmpty()) {
             nivel++;
             crearOleadaAliens();
-            // Puedes aumentar dificultad aquí (p.ej., velocidad de Alien)
+            // Punto de extensión: aumentar dificultad progresiva
         }
     }
 
-    private boolean colision(Rectangle2D a, Rectangle2D b) { return a.intersects(b); }
+    private boolean colision(Rectangle2D a, Rectangle2D b) {
+        return a.intersects(b);
+    }
 
+    /** Resta una vida y reinicia el estado si aún quedan intentos. */
     private void perderVidaYReiniciar() {
         vidas--;
         if (vidas <= 0) {
             gameOver = true;
             return;
         }
-        // Recolocar nave y reiniciar oleada
         nave = new Nave(
-            ANCHO / 2.0 - naveW / 2.0,
-            ALTO - naveH - CASILLA,
-            naveW, naveH, ANCHO, ALTO, "/imagenes/nave.png"
+                ANCHO / 2.0 - naveW / 2.0,
+                ALTO - naveH - CASILLA,
+                naveW, naveH, ANCHO, ALTO, "/imagenes/nave.png"
         );
         nave.setPasoPx(CASILLA / 2.0);
         crearOleadaAliens();

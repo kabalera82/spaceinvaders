@@ -5,22 +5,35 @@ import javafx.scene.image.Image;
 import kabalera82.spaceinvaders.interfaces.IMovimiento;
 
 /**
- * Clase que representa la nave del jugador.
+ * Representa la nave controlada por el jugador.
  *
- * <p>La nave es una {@link Entidad} que implementa {@link IMovimiento} y se 
- * controla mediante el teclado. Puede desplazarse en pasos fijos a izquierda 
- * o derecha dentro de los límites del mundo.</p>
+ * <p>Es una subclase de {@link Entidad} que implementa la interfaz
+ * {@link IMovimiento}. Su desplazamiento se realiza en pasos fijos hacia
+ * izquierda o derecha mediante la interacción con el teclado, siempre dentro
+ * de los límites del mundo.</p>
+ *
+ * <h2>Responsabilidades</h2>
+ * <ul>
+ *   <li>Almacenar y renderizar la imagen de la nave.</li>
+ *   <li>Responder a movimientos discretos en el eje horizontal.</li>
+ *   <li>Garantizar que la nave no sobrepase los límites del mundo.</li>
+ * </ul>
+ *
+ * @author  Kabalera82
+ * @version 1.0
+ * @see kabalera82.spaceinvaders.model.Entidad
+ * @see kabalera82.spaceinvaders.interfaces.IMovimiento
  */
 public class Nave extends Entidad implements IMovimiento {
 
-    /** Imagen que representa la nave en pantalla. */
+    /** Imagen de la nave renderizada en pantalla. */
     private final Image img;
 
-    /** Número de píxeles que la nave se mueve en cada paso. */
+    /** Cantidad de píxeles desplazados en cada paso de movimiento. */
     private double pasoPx = 16;
 
     /**
-     * Constructor de la nave del jugador.
+     * Construye una nueva nave del jugador.
      *
      * @param x posición inicial en el eje X.
      * @param y posición inicial en el eje Y.
@@ -28,54 +41,48 @@ public class Nave extends Entidad implements IMovimiento {
      * @param alto altura de la nave en píxeles.
      * @param mundoAncho anchura total del mundo (límite horizontal).
      * @param mundoAlto altura total del mundo (límite vertical).
-     * @param rutaRecurso ruta de la imagen de la nave en resources.
+     * @param rutaRecurso ruta de la imagen de la nave en {@code resources}.
      */
     public Nave(double x, double y, double ancho, double alto,
                 double mundoAncho, double mundoAlto, String rutaRecurso) {
-        // Inicializa los atributos heredados de Entidad
         super(x, y, ancho, alto, mundoAncho, mundoAlto);
-
-        // Carga la imagen de la nave desde resources
         img = new Image(getClass().getResourceAsStream(rutaRecurso));
     }
 
     /**
-     * Mueve la nave un "paso" hacia la izquierda o derecha.
+     * Desplaza la nave un paso en la dirección indicada.
      *
-     * <p>La dirección se pasa como parámetro:
+     * <p>Direcciones válidas:</p>
      * <ul>
-     *   <li>-1 = izquierda</li>
-     *   <li>+1 = derecha</li>
+     *   <li>-1 → izquierda</li>
+     *   <li>+1 → derecha</li>
      * </ul>
      *
      * @param dir dirección del movimiento (-1 izquierda, 1 derecha).
      */
     @Override
     public void moverPaso(int dir) {
-        // Desplaza horizontalmente usando el paso definido
         posicionHorizontal += dir * pasoPx;
-
-        // Evita que la nave salga de los límites del mundo
         clamp();
     }
 
     /**
      * Actualiza el estado de la nave.
      *
-     * <p>En este caso no hace nada porque el movimiento se controla por pasos
-     * (teclas), pero se deja preparado por si se añade lógica en el futuro.</p>
+     * <p>Actualmente no implementa lógica adicional, ya que la nave
+     * se controla únicamente mediante pasos discretos.</p>
      *
-     * @param dt tiempo transcurrido en segundos (no utilizado aquí).
+     * @param dt tiempo transcurrido en segundos (no utilizado).
      */
     @Override
     public void actualizar(double dt) {
-        // Vacío porque la nave no se mueve automáticamente
+        // Intencionalmente vacío
     }
 
     /**
-     * Dibuja la nave en el canvas.
+     * Renderiza la nave en el contexto gráfico indicado.
      *
-     * @param g el {@link GraphicsContext} donde se pintará la nave.
+     * @param g el {@link GraphicsContext} sobre el que se dibuja la nave.
      */
     @Override
     public void draw(GraphicsContext g) {
@@ -83,10 +90,7 @@ public class Nave extends Entidad implements IMovimiento {
     }
 
     /**
-     * Cambia el tamaño del paso de movimiento en píxeles.
-     *
-     * <p>Sirve para ajustar la velocidad de la nave (a mayor paso, 
-     * más rápido se desplaza).</p>
+     * Define el número de píxeles desplazados por paso de movimiento.
      *
      * @param px cantidad de píxeles por paso.
      */
